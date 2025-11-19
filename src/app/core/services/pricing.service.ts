@@ -61,6 +61,7 @@ export class PricingService {
       return item.price * quantity;
     }
 
+    // here im setting offerSets how many times the offer can be applied
     const offerSets = Math.floor(quantity / offer.quantity);
     const remainder = quantity % offer.quantity;
 
