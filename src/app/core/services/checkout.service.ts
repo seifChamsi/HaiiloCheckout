@@ -1,4 +1,4 @@
-import { Inject, Injectable, computed, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 import { PricingService } from './pricing.service';
 
 export interface ScannedItem {
@@ -10,6 +10,7 @@ export interface ScannedItem {
   providedIn: 'root',
 })
 export class CheckoutService {
+  private pricingService = inject(PricingService);
   private scannedItems = signal<Map<string, number>>(new Map());
 
   items = computed<ScannedItem[]>(() => {
@@ -26,8 +27,6 @@ export class CheckoutService {
     });
     return totalPrice;
   });
-
-  private pricingService = Inject(PricingService);
 
   scan(itemName: string): void {
     const item = this.pricingService.getItem(itemName);
